@@ -298,29 +298,28 @@ gulp.task('serve', gulp.series('default', () => {
     host: HOST,
     livereload: true
   });
+
+  const slidesRoot = root.endsWith('/') ? root : root + '/'
+  
+  gulp.watch([
+      slidesRoot + '**/*.html', 
+      slidesRoot + '**/*.md',
+      `!${slidesRoot}**/node_modules/**`, // ignore node_modules
+  ], gulp.series('reload'))
+
+  gulp.watch(['js/**'], gulp.series('js', 'reload', 'eslint'))
+
+  gulp.watch(['plugin/**/plugin.js', 'plugin/**/*.html'], gulp.series('plugins', 'reload'))
+
+  gulp.watch([
+      'css/theme/source/**/*.{sass,scss}',
+      'css/theme/template/*.{sass,scss}',
+  ], gulp.series('css-themes', 'reload'))
+
+  gulp.watch([
+      'css/*.scss',
+      'css/print/*.{sass,scss,css}'
+  ], gulp.series('css-core', 'reload'))
+
+  gulp.watch(['test/*.html'], gulp.series('test'))
 }));
-
-    const slidesRoot = root.endsWith('/') ? root : root + '/'
-    gulp.watch([
-        slidesRoot + '**/*.html', 
-        slidesRoot + '**/*.md',
-        `!${slidesRoot}**/node_modules/**`, // ignore node_modules
-    ], gulp.series('reload'))
-
-    gulp.watch(['js/**'], gulp.series('js', 'reload', 'eslint'))
-
-    gulp.watch(['plugin/**/plugin.js', 'plugin/**/*.html'], gulp.series('plugins', 'reload'))
-
-    gulp.watch([
-        'css/theme/source/**/*.{sass,scss}',
-        'css/theme/template/*.{sass,scss}',
-    ], gulp.series('css-themes', 'reload'))
-
-    gulp.watch([
-        'css/*.scss',
-        'css/print/*.{sass,scss,css}'
-    ], gulp.series('css-core', 'reload'))
-
-    gulp.watch(['test/*.html'], gulp.series('test'))
-
-})
