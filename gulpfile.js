@@ -5,6 +5,9 @@ const yargs = require('yargs')
 const colors = require('colors')
 const through = require('through2');
 const qunit = require('node-qunit-puppeteer')
+const PORT = process.env.PORT || 8000;
+const HOST = '0.0.0.0';
+
 
 const {rollup} = require('rollup')
 const {terser} = require('rollup-plugin-terser')
