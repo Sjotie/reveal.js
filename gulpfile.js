@@ -292,14 +292,13 @@ gulp.task('package', gulp.series(() =>
 gulp.task('reload', () => gulp.src(['**/*.html', '**/*.md'])
     .pipe(connect.reload()));
 
-gulp.task('serve', () => {
-
-    connect.server({
-        root: root,
-        port: PORT,
-        host: HOST,
-        livereload: true
-    })
+gulp.task('serve', gulp.series('default', () => {
+  server.start({
+    port: PORT,
+    host: HOST,
+    livereload: true
+  });
+}));
 
     const slidesRoot = root.endsWith('/') ? root : root + '/'
     gulp.watch([
