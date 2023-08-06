@@ -296,8 +296,8 @@ gulp.task('serve', () => {
 
     connect.server({
         root: root,
-        port: port,
-        host: host,
+        port: PORT,
+        host: HOST,
         livereload: true
     })
 
